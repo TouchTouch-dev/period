@@ -8,8 +8,7 @@ html {
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    /* 고정 헤더 때문에 body 상단에 패딩 추가 */
-    padding-top: 100px; /* 헤더 높이에 따라 이 값을 조정해야 할 수 있습니다. */
+    padding: 0;
     line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
@@ -44,12 +43,6 @@ ul {
     border-bottom: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 10px 0;
-
-    /* 추가된 스타일 */
-    position: fixed; /* 헤더를 뷰포트에 고정 */
-    top: 0; /* 상단에 고정 */
-    width: 100%; /* 전체 너비 차지 */
-    z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
 }
 
 .main-header .container {
@@ -76,16 +69,21 @@ ul {
     flex-basis: 100%; /* 모바일에서 메뉴가 한 줄 차지하도록 */
 }
 
+/* ★★★★★ 여기부터 수정된 .main-nav ul 및 li 스타일 ★★★★★ */
 .main-nav ul {
     display: flex;
-    flex-direction: row; /* 메뉴 아이템을 가로로 정렬 */
+    flex-direction: row; /* 메뉴 아이템을 가로로 정렬 (모바일 기본) */
     width: 100%;
+    justify-content: space-around; /* 메뉴 아이템들을 균등하게 분배 */
+    overflow-x: auto; /* 내용이 넘칠 경우 가로 스크롤 허용 */
+    white-space: nowrap; /* 메뉴 항목들이 줄바꿈되지 않도록 */
 }
 
 .main-nav ul li {
-    margin: 5px 0; /* 메뉴 아이템 간격 줄임 */
-    width: 100%;
+    margin: 5px 10px; /* 상하 5px, 좌우 10px 마진 */
+    width: auto; /* 너비를 자동으로 설정하여 가로 정렬에 적합하게 함 */
     text-align: center;
+    flex-shrink: 0; /* 메뉴 항목이 줄어들지 않도록 설정 (필요시) */
 }
 
 .main-nav ul li a {
@@ -213,10 +211,6 @@ ul {
 
 /* 반응형 디자인 (데스크탑 뷰를 위한 미디어 쿼리 - 769px 이상) */
 @media (min-width: 769px) {
-    body {
-        padding-top: 80px; /* 데스크탑 뷰에서 헤더 높이에 맞게 패딩 조정 */
-    }
-
     .main-header .container {
         flex-direction: row; /* 데스크탑에서는 가로 정렬 */
         text-align: left;
@@ -233,11 +227,15 @@ ul {
     }
 
     .main-nav ul {
-        flex-direction: row; /* 데스크탑에서는 가로 정렬 */
+        /* flex-direction: row; <--- 이제 이 줄은 필요 없습니다! 모바일 기본에 이미 설정됨 */
+        justify-content: flex-end; /* 데스크탑에서는 메뉴를 오른쪽으로 정렬 (선택 사항) */
+        overflow-x: visible; /* 데스크탑에서는 스크롤바 숨김 */
+        white-space: normal; /* 데스크탑에서는 줄바꿈 허용 */
     }
 
     .main-nav ul li {
         margin-left: 20px;
+        margin-right: 0; /* 모바일에서 적용된 우측 마진 초기화 */
         width: auto;
     }
 
@@ -267,6 +265,7 @@ ul {
     }
 
     .campaign-cards {
+        display: flex; /* 이미 flex지만 명시적으로 다시 선언 */
         flex-direction: row; /* 데스크탑에서는 가로 정렬 */
         flex-wrap: wrap;
         justify-content: center;
