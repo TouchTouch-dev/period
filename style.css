@@ -78,7 +78,7 @@ ul {
 
 .main-nav ul {
     display: flex;
-    flex-direction: column; /* 메뉴 아이템을 세로로 정렬 */
+    flex-direction: row; /* 메뉴 아이템을 가로로 정렬 */
     width: 100%;
 }
 
